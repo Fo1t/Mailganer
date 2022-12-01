@@ -1,0 +1,172 @@
+{% extends "base_generic.html" %}
+{% block content %}
+	    <div class="app-content pt-3 p-md-3 p-lg-4">
+		    <div class="container-xl">
+			    
+			    <div class="row g-3 mb-4 align-items-center justify-content-between">
+				    <div class="col-auto">
+			            <h1 class="app-page-title mb-0">Рассылки</h1>
+				    </div>
+				    <div class="col-auto">
+					     <!--//table-utilities-->
+				    </div><!--//col-auto-->
+			    </div><!--//row-->
+			   
+			    
+			    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Все</a>
+				    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Успешные</a>
+				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Ожидают</a>
+				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Ошибки</a>
+				</nav>
+				
+				
+				<div class="tab-content" id="orders-table-tab-content">
+			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+					    <div class="app-card app-card-orders-table shadow-sm mb-5">
+						    <div class="app-card-body">
+							    <div class="table-responsive">
+							        <table class="table app-table-hover mb-0 text-left">
+										<thead>
+											<tr>
+												<th class="cell">Рассылка</th>
+												<th class="cell">Название</th>
+												<th class="cell">Дата</th>
+												<th class="cell">Статус</th>
+												<th class="cell">Писем отправлено</th>
+												<th class="cell"></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for tsk in all_task %}
+											<tr>
+												<td class="cell">{{tsk.task.id}}</td>
+												<td class="cell"><span class="truncate">{{tsk.task.name}}</span></td>
+												
+												<td class="cell"><span class="note">{{tsk.task.start_time}}</span></td>
+												<td class="cell"><span class="{{tsk.status_class}}">{{tsk.status_msg}}</span></td>
+												<td class="cell">{{tsk.count}}</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="{{tsk.task.id}}/">Подробнее</a></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+						        </div><!--//table-responsive-->
+						       
+						    </div><!--//app-card-body-->		
+						</div><!--//app-card-->
+						<!--//app-pagination-->
+						
+			        </div><!--//tab-pane-->
+			        
+			        <div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
+					    <div class="app-card app-card-orders-table mb-5">
+						    <div class="app-card-body">
+							    <div class="table-responsive">
+								    
+							        <table class="table mb-0 text-left">
+										<thead>
+											<tr>
+												<th class="cell">Рассылка</th>
+												<th class="cell">Название</th>
+												<th class="cell">Дата</th>
+												<th class="cell">Статус</th>
+												<th class="cell">Писем отправлено</th>
+												<th class="cell"></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for tsk in success_task %}
+											<tr>
+												<td class="cell">{{tsk.task.id}}</td>
+												<td class="cell"><span class="truncate">{{tsk.task.name}}</span></td>
+												
+												<td class="cell"><span class="note">{{tsk.task.start_time}}</span></td>
+												<td class="cell"><span class="badge bg-success">Завершено</span></td>
+												<td class="cell">{{tsk.count}}</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="{{tsk.task.id}}/">Подробнее</a></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+						        </div><!--//table-responsive-->
+						    </div><!--//app-card-body-->		
+						</div><!--//app-card-->
+			        </div><!--//tab-pane-->
+			        
+			        <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
+					    <div class="app-card app-card-orders-table mb-5">
+						    <div class="app-card-body">
+							    <div class="table-responsive">
+							        <table class="table mb-0 text-left">
+										<thead>
+											<tr>
+												<th class="cell">Рассылка</th>
+												<th class="cell">Название</th>
+												<th class="cell">Дата</th>
+												<th class="cell">Статус</th>
+												<th class="cell">Писем отправлено</th>
+												<th class="cell"></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for tsk in waiting_task %}
+											<tr>
+												<td class="cell">{{tsk.task.id}}</td>
+												<td class="cell"><span class="truncate">{{tsk.task.name}}</span></td>
+												
+												<td class="cell"><span class="note">{{tsk.task.start_time}}</span></td>
+												<td class="cell"><span class="badge bg-warning">В ожидании</span></td>
+												<td class="cell">{{tsk.count}}</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="{{tsk.task.id}}/">Подробнее</a></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+						        </div><!--//table-responsive-->
+						    </div><!--//app-card-body-->		
+						</div><!--//app-card-->
+			        </div><!--//tab-pane-->
+			        <div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">
+					    <div class="app-card app-card-orders-table mb-5">
+						    <div class="app-card-body">
+							    <div class="table-responsive">
+							        <table class="table mb-0 text-left">
+										<thead>
+											<tr>
+												<th class="cell">Рассылка</th>
+												<th class="cell">Название</th>
+												<th class="cell">Дата</th>
+												<th class="cell">Статус</th>
+												<th class="cell">Писем отправлено</th>
+												<th class="cell"></th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for tsk in error_task %}
+											<tr>
+												<td class="cell">{{tsk.task.id}}</td>
+												<td class="cell"><span class="truncate">{{tsk.task.name}}</span></td>
+												
+												<td class="cell"><span class="note">{{tsk.task.start_time}}</span></td>
+												<td class="cell"><span class="badge bg-danger">Ошибка</span></td>
+												<td class="cell">{{tsk.count}}</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="{{tsk.task.id}}/">Подробнее</a></td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+						        </div><!--//table-responsive-->
+						    </div><!--//app-card-body-->		
+						</div><!--//app-card-->
+			        </div><!--//tab-pane-->
+				</div><!--//tab-content-->
+				
+				
+			    
+		    </div><!--//container-fluid-->
+	    </div><!--//app-content-->
+
+    
+		{% endblock %}
+    
